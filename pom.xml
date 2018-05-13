@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>CookHow</name>
+	<nameId>CookHow</nameId>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -49,8 +49,13 @@
 		    <artifactId>hibernate-core</artifactId>
 		    <version>5.2.16.Final</version>
 		</dependency>
-				
-	</dependencies>
+        <dependency>
+            <groupId>com.google.collections</groupId>
+            <artifactId>google-collections</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<plugins>
