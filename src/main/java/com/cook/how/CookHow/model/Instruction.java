@@ -4,21 +4,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-public class Instruction extends ListElement{
+public class Instruction{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
-	
-	public Instruction(String description, int order, Long id) {
-		super(description, order);
-		this.id = id;
+	private String description;
+	private int stepNumber;
+
+	public Instruction(String description, int stepNumber) {
+		this.description = description;
+		this.stepNumber = stepNumber;
 	}
+
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public int getStepNumber() {
+		return stepNumber;
+	}
+	public void setStepNumber(int order) {
+		this.stepNumber = order;
 	}
 
 }

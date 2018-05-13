@@ -5,46 +5,47 @@ import java.util.List;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import com.google.common.collect.Lists;
 
-import org.assertj.core.util.Lists;
 
-public class Recepy {
+public class Recipe {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
-	private List<Ingridient> ingridients;
+	private List<Ingredient> ingredients;
 	private List<Instruction> instructions;
 	private List<Comment> comments;
 	private Double rate;
 	private User owner;
 
-	public Recepy(Long id, List<Ingridient> ingridients, List<Comment> comments, Double rate, User owner,
-			List<Instruction> intructions) {
+	public Recipe(Long id, List<Ingredient> ingredients, List<Comment> comments, Double rate, User owner,
+                  List<Instruction> intructions) {
 		super();
 		this.id = id;
-		this.ingridients = ingridients;
+		this.ingredients = ingredients;
 		this.comments = comments;
 		this.rate = rate;
 		this.owner = owner;
 		this.instructions = intructions;
 	}
 
-	public Recepy() {
+	public Recipe() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Ingridient> getIngridients() {
-		return ingridients;
+	public List<Ingredient> getIngredients() {
+		return ingredients;
 	}
-	public void setIngridients(List<Ingridient> ingridients) {
-		this.ingridients = ingridients;
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 	public List<Comment> getComments() {
 		return comments;
@@ -70,17 +71,18 @@ public class Recepy {
 	public void setInstructions(List<Instruction> intructions) {
 		this.instructions = intructions;
 	}
+
 	public void addComment(Comment comment) {
 		if (comments == null) {
 			comments = Lists.newArrayList();
 		}
 		comments.add(comment);
 	}
-	public void addIngridients(Ingridient ingridient) {
-		if (ingridients == null) {
-			ingridients = Lists.newArrayList();
+	public void addIngridients(Ingredient ingredient) {
+		if (ingredients == null) {
+			ingredients = Lists.newArrayList();
 		}
-		ingridients.add(ingridient);
+		ingredients.add(ingredient);
 	}
 
 	public void addInstruction(Instruction instruction) {

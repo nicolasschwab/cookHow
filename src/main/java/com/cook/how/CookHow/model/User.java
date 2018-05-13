@@ -1,12 +1,12 @@
 package com.cook.how.CookHow.model;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.assertj.core.util.Lists;
 
 public class User {
 
@@ -15,9 +15,9 @@ public class User {
 	private Long id;
 	private String username;
 	private List<Comment> myComments;
-	private List<Recepy> myRecepies;
+	private List<Recipe> myRecepies;
 	
-	public User(Long id, String username, List<Comment> comments, List<Recepy> recepies) {
+	public User(Long id, String username, List<Comment> comments, List<Recipe> recepies) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -51,17 +51,17 @@ public class User {
 		}
 		myComments.add(comment);
 	}
-	public List<Recepy> getMyRecepies() {
+	public List<Recipe> getMyRecepies() {
 		return myRecepies;
 	}
-	public void setMyRecepies(List<Recepy> recepies) {
+	public void setMyRecepies(List<Recipe> recepies) {
 		this.myRecepies = recepies;
 	}
-	public void addRecepy(Recepy recepy) {
+	public void addRecepy(Recipe recipe) {
 		if (myRecepies == null) {
 			myRecepies = Lists.newArrayList();
 		}
-		myRecepies.add(recepy);
+		myRecepies.add(recipe);
 	}
 	
 }
