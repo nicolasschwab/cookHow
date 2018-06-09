@@ -2,6 +2,7 @@ package com.cook.how.CookHow.controller;
 
 import com.cook.how.CookHow.model.IngredientName;
 import com.cook.how.CookHow.repository.IngredientNameRepository;
+import com.cook.how.CookHow.service.IngredientNameService;
 import com.cook.how.CookHow.validator.IngredientNormalizerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,12 @@ import java.util.List;
 public class IngredientNormalizerController{
 
     @Autowired
-    private IngredientNameRepository ingredientNameRepository;
+    IngredientNameService ingredientNameService;
 
     @GetMapping("/inferAndGet/{threeLettersIngredient}")
     public String inferAndGet(@PathVariable String threeLettersIngredient){
         IngredientNormalizerValidator.validateInferAndGet(threeLettersIngredient);
-        List<IngredientName> ingredientsName = ingredientNameRepository.findByNameContaining(threeLettersIngredient);
+        List<IngredientName> ingredientsName = ingredientNameService.getIngredientStartingWith(threeLettersIngredient);
         return "";
     }
 }
