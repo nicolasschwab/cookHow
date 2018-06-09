@@ -3,6 +3,7 @@ package com.cook.how.CookHow.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.List;
 
 public class IngredientName {
 
@@ -10,9 +11,14 @@ public class IngredientName {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private Long id;
     private String name;
+    private List<IngredientName> subIngredientId;
 
     public IngredientName(String name) {
         this.name = name;
+    }
+
+    public Boolean isSubIngredient(String otherName){
+        return true;
     }
 
     public Long getId() {

@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface IngredientNameRepository extends JpaRepository<IngredientName, Long> {
 
-    @Query("select i from IngredientName i where i.name like '?1%' or i.name like ' ?1%'")
-    List<IngredientName> findByNameContaining(String threLetters);
+    List<IngredientName> findByNameStartsWith(String threeLetters);
 }
