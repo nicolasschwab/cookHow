@@ -12,16 +12,14 @@ public class Ingredient{
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private Boolean isEssential;
-	private Long nameId;
-	private int stepNumber;
-
-    public Ingredient(Boolean isEssential, Long nameId, int stepNumber) {
-        this.isEssential = isEssential;
-        this.nameId = nameId;
-        this.stepNumber = stepNumber;
-    }
-
-    public Long getId() {
+	private String name;
+	
+    public Ingredient(Boolean isEssential, String name) {
+		super();
+		this.isEssential = isEssential;
+		this.name = name;
+	}
+	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -33,16 +31,17 @@ public class Ingredient{
 	public void setEssential(Boolean essential) {
 		isEssential = essential;
 	}
-    public Long getNameId() {
-        return nameId;
-    }
-    public void setNameId(Long nameId) {
-        this.nameId = nameId;
-    }
-    public int getStepNumber() {
-        return stepNumber;
-    }
-    public void setStepNumber(int order) {
-        this.stepNumber = order;
-    }
+	public Boolean getIsEssential() {
+		return isEssential;
+	}
+	public void setIsEssential(Boolean isEssential) {
+		this.isEssential = isEssential;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 }
