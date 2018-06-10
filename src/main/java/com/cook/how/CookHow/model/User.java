@@ -4,17 +4,18 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Entity
 public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	private String username;
+    @OneToMany(targetEntity=Comment.class)
 	private List<Comment> myComments;
+    @OneToMany(targetEntity=Recipe.class, mappedBy="owner")
 	private List<Recipe> myRecepies;
 	
 	public User(Long id, String username, List<Comment> comments, List<Recipe> recepies) {

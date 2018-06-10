@@ -2,21 +2,24 @@ package com.cook.how.CookHow.model;
 
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import com.google.common.collect.Lists;
 
-
+@Entity
 public class Recipe {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
+    @ManyToMany(targetEntity=Ingredient.class)
 	private List<Ingredient> ingredients;
+    @OneToMany(targetEntity=Instruction.class)
 	private List<Instruction> instructions;
+	@OneToMany(targetEntity=Comment.class)
 	private List<Comment> comments;
 	private Double rate;
+    @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
 	private User owner;
 
 	public Recipe(Long id, List<Ingredient> ingredients, List<Comment> comments, Double rate, User owner,

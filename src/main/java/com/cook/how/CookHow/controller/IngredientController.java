@@ -12,4 +12,9 @@ public class IngredientController {
     @Autowired
     private IngredientRepository ingredientRepository;
 
+    @RequestMapping("/hola")
+    public String prueba(){
+        return "Holis";
+    }
+
 }
