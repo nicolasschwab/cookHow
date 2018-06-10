@@ -1,15 +1,16 @@
 package com.cook.how.CookHow.aspect;
 
+import java.util.Arrays;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @Component
 @Aspect
@@ -26,6 +27,11 @@ public class LogAspect {
     @After("execution (* com.cook.how.CookHow.controller.*.*(..))")
     public void logAfterController(JoinPoint joinPoint) {
         log.info("Exit Method: " + joinPoint.getSignature().getName());
+    }
+    
+    @AfterThrowing(pointcut = "execution(* com.cook.how.CookHow.controller.*.*(..))", throwing = "ex")
+    public void logError(Exception ex) {
+        ex.printStackTrace();
     }
 
     @AfterReturning(pointcut = "execution (* com.cook.how.CookHow.repository.*.*(..))", returning = "result")
