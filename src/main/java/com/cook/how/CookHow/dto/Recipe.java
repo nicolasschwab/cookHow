@@ -1,23 +1,21 @@
 package com.cook.how.CookHow.dto;
 
-import com.google.common.collect.Lists;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 
-public class Recipe {
+
+public class Recipe implements Serializable{
+
+	private static final long serialVersionUID = -680831060232783708L;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
-	private List<Ingredient> ingredients;
-	private List<Instruction> instructions;
-	private List<Comment> comments;
-	private Double rate;
-	private User owner;
+	public Long id;
+	public List<Ingredient> ingredients;
+	public List<Instruction> instructions;
+	public List<Comment> comments;
+	public Double rate;
+	public User owner;
 
 	public Recipe(Long id, List<Ingredient> ingredients, List<Comment> comments, Double rate, User owner,
                   List<Instruction> intructions) {
@@ -33,43 +31,6 @@ public class Recipe {
 	public Recipe() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public List<Ingredient> getIngredients() {
-		return ingredients;
-	}
-	public void setIngredients(List<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
-	public List<Comment> getComments() {
-		return comments;
-	}
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-	public Double getRate() {
-		return rate;
-	}
-	public void setRate(Double rate) {
-		this.rate = rate;
-	}
-	public User getOwner() {
-		return owner;
-	}
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-	public List<Instruction> getInstructions() {
-		return instructions;
-	}
-	public void setInstructions(List<Instruction> intructions) {
-		this.instructions = intructions;
 	}
 
 	public void addComment(Comment comment) {

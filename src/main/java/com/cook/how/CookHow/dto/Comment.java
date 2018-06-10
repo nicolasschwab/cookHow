@@ -1,36 +1,17 @@
 package com.cook.how.CookHow.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 
-public class Comment {
+public class Comment implements Serializable{
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
-	private String description;
+	private static final long serialVersionUID = -6891665850532188594L;
+	
+	public Long id;
+	public String description;
 	
 	public Comment(Long id, String description) {
 		super();
 		this.id = id;
 		this.description = description;
 	}
-	public Comment() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 }

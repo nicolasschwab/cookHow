@@ -1,39 +1,19 @@
 package com.cook.how.CookHow.dto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 
-public class Instruction{
+public class Instruction implements Serializable{
+
+	private static final long serialVersionUID = 8785903520960741395L;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Long id;
-	private String description;
-	private int stepNumber;
+	public Long id;
+	public String description;
+	public int stepNumber;
 
-	public Instruction(String description, int stepNumber) {
+	public Instruction(Long id, String description, int stepNumber) {
+		this.id = id;
 		this.description = description;
 		this.stepNumber = stepNumber;
-	}
-
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public int getStepNumber() {
-		return stepNumber;
-	}
-	public void setStepNumber(int order) {
-		this.stepNumber = order;
 	}
 
 }
