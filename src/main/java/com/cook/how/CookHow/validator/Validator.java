@@ -14,11 +14,15 @@ public abstract class Validator {
          if (StringUtils.isEmpty(aString)) throw new ElementCantBeEmpty(errorMessage);
     }
     
-    static void stringLengthIsThree(String aString, String errorMessage){
+    static void stringLengthIsGraterThanTwo(String aString, String errorMessage){
     	if (aString.length() < 3) throw new StringLengthMustBeGraterThanThree(errorMessage);
     }
     
     static void hasAtLeastOneElement(List<?> aList, String errorMessage){
     	if (CollectionUtils.isEmpty(aList)) throw new ElementCantBeEmpty(errorMessage);
+    }
+
+    static void objetCantBeNull(Object object, String errorMessage){
+        if (object == null) throw new  throw new ElementCantBeEmpty(errorMessage);
     }
 }
