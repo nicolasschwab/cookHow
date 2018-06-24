@@ -17,4 +17,18 @@ public class Ingredient implements Serializable{
 		this.name = name;
 	}
 
+	public Ingredient() {
+	}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEssential(Boolean essential) {
+        isEssential = essential;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

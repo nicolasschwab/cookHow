@@ -19,6 +19,10 @@ public class Ingredient{
 		this.isEssential = isEssential;
 		this.name = name;
 	}
+
+	public Ingredient() {
+	}
+
 	public Long getId() {
 		return id;
 	}
