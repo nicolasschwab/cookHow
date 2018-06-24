@@ -8,7 +8,7 @@ import org.springframework.util.StringUtils;
 import com.cook.how.CookHow.exception.ElementCantBeEmpty;
 import com.cook.how.CookHow.exception.StringLengthMustBeGraterThanThree;
 
-public abstract class Validator {
+abstract class Validator {
 
     static void stringIsNotNullNorEmpty(String aString, String errorMessage){
          if (StringUtils.isEmpty(aString)) throw new ElementCantBeEmpty(errorMessage);
@@ -23,6 +23,6 @@ public abstract class Validator {
     }
 
     static void objetCantBeNull(Object object, String errorMessage){
-        if (object == null) throw new  throw new ElementCantBeEmpty(errorMessage);
+        if (object == null)  throw new ElementCantBeEmpty(errorMessage);
     }
 }
