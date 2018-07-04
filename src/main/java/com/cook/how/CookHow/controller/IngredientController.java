@@ -1,7 +1,9 @@
 package com.cook.how.CookHow.controller;
 
 import com.cook.how.CookHow.dto.Ingredient;
+import com.cook.how.CookHow.factory.ResponseFactory;
 import com.cook.how.CookHow.service.IngredientService;
+import com.cook.how.CookHow.util.Response;
 import com.cook.how.CookHow.validator.IngredientValidator;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,7 @@ public class IngredientController {
     }
 
     @GetMapping("/inferAndGet")
-    public @ResponseBody
-    List<Ingredient> inferAndGet(@RequestParam String ingredientName){
+    public @ResponseBody List<Ingredient> inferAndGet(@RequestParam String ingredientName){
         IngredientValidator.validateInferAndGet(ingredientName);
         return ingredientService.getIngredientsStartingWith(ingredientName);
     }
@@ -29,9 +30,21 @@ public class IngredientController {
         return ingredientService.getAll();
     }
 
+    @GetMapping("/get/{id}")
+    public @ResponseBody Response get(@PathVariable Long id){
+        return ResponseFactory.createOkResponseWithPayload(ingredientService.get(id));
+    }
+
     @PostMapping("/add")
-    public @ResponseBody List<Ingredient> add(Ingredient ingredient){
-        IngredientValidator.validateAdd(ingredient);
+    public @ResponseBody Response add(String ingredientName){
+        IngredientValidator.validateAdd(ingredientName);
+        return ingredientService.addIngredient(ingredientName);
+    }
+
+    @PutMapping("/edit")
+    public void edit(Ingredient ingredient){
+        IngredientValidator.validateEdit(ingredient);
+        ingredientService.editIngredient(ingredient);
     }
 
 }
