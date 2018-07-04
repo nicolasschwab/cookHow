@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,4 +23,17 @@ public class DozerMapper implements Mapper{
                 .map(from -> this.dozerBeanMapper.map(from, toClass))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public <FROM, TO> TO map(FROM from, Class<TO> toClass) {
+        if (from == null) return null;
+        return this.dozerBeanMapper.map(from, toClass);
+    }
+
+    @Override
+    public <FROM, TO> TO map(Optional<FROM> from, Class<TO> toClass) {
+        if (from.isPresent() ) return this.dozerBeanMapper.map(from.get(), toClass);
+        return null;
+    }
+
 }
