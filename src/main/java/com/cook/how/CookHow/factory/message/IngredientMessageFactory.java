@@ -7,7 +7,7 @@ public class IngredientMessageFactory extends MessageFactory{
 
     @Override
     protected String formatStrings(String firstElement, String secondElement){
-        return String.format(firstElement, "Ingredient" + secondElement);
+        return String.format(firstElement, "Ingredient " + secondElement);
     }
 
 

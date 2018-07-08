@@ -36,9 +36,9 @@ public class IngredientController {
     }
 
     @PostMapping("/add")
-    public @ResponseBody Response add(String ingredientName){
-        IngredientValidator.validateAdd(ingredientName);
-        return ingredientService.addIngredient(ingredientName);
+    public @ResponseBody Response add(@RequestBody Ingredient ingredient){
+        IngredientValidator.validateAdd(ingredient.name);
+        return ingredientService.addIngredient(ingredient.name);
     }
 
     @PutMapping("/edit")
