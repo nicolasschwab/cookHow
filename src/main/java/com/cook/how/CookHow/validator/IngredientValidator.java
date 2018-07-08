@@ -2,17 +2,24 @@ package com.cook.how.CookHow.validator;
 
 import com.cook.how.CookHow.dto.Ingredient;
 
-public class IngredientValidator extends Validator{
+import static com.cook.how.CookHow.util.PropertyName.*;
 
-    private static final String INGREDIENT_NAME = "Ingredient name";
-    private static final String INGREDIENT = "Ingredient";
+public class IngredientValidator extends Validator{
 
     public static void validateInferAndGet(String ingredientName){
         stringIsNotNullNorEmpty(ingredientName, INGREDIENT_NAME);
         stringLengthIsGraterThanTwo(ingredientName, INGREDIENT_NAME);
     }
 
-    public static void validateAdd(Ingredient ingredient) {
-        stringIsNotNullNorEmpty(ingredient.name, INGREDIENT_NAME);
+    public static void validateAdd(String ingredientName) {
+        stringIsNotNullNorEmpty(ingredientName, INGREDIENT_NAME);
     }
+
+    public static void validateEdit(Ingredient ingredient) {
+        objetCantBeNull(ingredient, INGREDIENT);
+        stringIsNotNullNorEmpty(ingredient.name, INGREDIENT_NAME);
+        objetCantBeNull(ingredient.isEssential, INGREDIENT_IS_ESSENTIAL);
+        objetCantBeNull(ingredient.id, INGREDIENT_ID);
+    }
+
 }

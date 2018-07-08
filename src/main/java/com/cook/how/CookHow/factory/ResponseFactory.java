@@ -1,6 +1,7 @@
 package com.cook.how.CookHow.factory;
 
 import com.cook.how.CookHow.exception.InternalServerError;
+import com.cook.how.CookHow.factory.message.MessageFactory;
 import com.cook.how.CookHow.util.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,24 +13,26 @@ public class ResponseFactory {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static Response createOkResponseWithMessage(String message){
+    private static MessageFactory messageFactory = new MessageFactory();
 
-    }
+    /*public static Response createOkResponseWithMessage(String message){
+
+    }*/
 
     public static Response createBadRequestResponse(String message){
         return createErrorResponse(HttpStatus.BAD_REQUEST, message);
     }
 
     public static Response createInternalErrorResposne(){
-        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, INTERNAL_ERROR);
+        return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, messageFactory.createInternalError());
     }
 
     public static <T> Response createOkResponseWithPayload(List<T> payload){
-        createWithPayload(HttpStatus.OK, payload);
+        return createWithPayload(HttpStatus.OK, payload);
     }
 
     public static <T> Response createOkResponseWithPayload(T payload){
-        createWithPayload(HttpStatus.OK, payload);
+        return createWithPayload(HttpStatus.OK, payload);
     }
 
     private static <T> Response createWithPayload(HttpStatus httpStatus ,T payload){
@@ -47,7 +50,7 @@ public class ResponseFactory {
     }
 
     private static Response createCantFindElementResponse(){
-        return createErrorResponse(HttpStatus.BAD_REQUEST , CANT_FIND_ELEMENT);
+        return createErrorResponse(HttpStatus.BAD_REQUEST , messageFactory.createCantFindElement());
     }
 
     private static Response createErrorResponse(HttpStatus httpStatus, String message){

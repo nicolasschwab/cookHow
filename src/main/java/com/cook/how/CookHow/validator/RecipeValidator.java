@@ -2,11 +2,11 @@ package com.cook.how.CookHow.validator;
 
 import com.cook.how.CookHow.dto.Recipe;
 
-public class RecipeValidator extends Validator{
+import static com.cook.how.CookHow.util.PropertyName.INGREDIENTS;
+import static com.cook.how.CookHow.util.PropertyName.INSTRUCTIONS;
+import static com.cook.how.CookHow.util.PropertyName.OWNER_ID;
 
-	private static final String INGREDIENTS = "The list of ingredients";
-	private static final String INSTRUCTIONS = "The list of instructions";
-	private static final String OWNER_ID = "The owner";
+public class RecipeValidator extends Validator{
 	
 	public static void validateAdd(Recipe recipe){
 		hasAtLeastOneElement(recipe.ingredients, INGREDIENTS);

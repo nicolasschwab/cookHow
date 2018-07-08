@@ -21,6 +21,9 @@ public class IngredientService {
     @Autowired
     private Mapper mapper;
 
+    @Autowired
+    private MessageFactory ingredientMessageFactory;
+
     public List<Ingredient> getIngredientsStartingWith(String partialName){
         return mapper.mapList(ingredientRepository.findByNameStartingWith(partialName), Ingredient.class);
     }
@@ -35,7 +38,7 @@ public class IngredientService {
 
     public synchronized Response addIngredient(String ingredientName) {
         if (ingredientNameAlreadyExist(ingredientName)){
-            return ResponseFactory.createBadRequestResponse(MessageFactory.createElementAlreadyExist(ingredientName));
+            return ResponseFactory.createBadRequestResponse(ingredientMessageFactory.createElementAlreadyExist(ingredientName));
         }
         return ResponseFactory.createOkResponseWithPayload(
                 mapper.map(
@@ -49,8 +52,8 @@ public class IngredientService {
         return ingredientRepository.findByName(ingredientName).isPresent();
     }
 
-    public Ingredient editIngredient(Ingredient ingredient) {
+    /*public Ingredient editIngredient(Ingredient ingredient) {
         return ingredientRepository.findById(ingredient.id);
-    }
+    }*/
 
 }
