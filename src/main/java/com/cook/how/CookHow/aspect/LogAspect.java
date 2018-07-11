@@ -2,14 +2,16 @@ package com.cook.how.CookHow.aspect;
 
 import java.util.Arrays;
 
+import com.cook.how.CookHow.exception.ElementCantBeEmpty;
+import com.cook.how.CookHow.exception.InternalServerError;
+import com.cook.how.CookHow.exception.StringLengthMustBeGraterThanThree;
+import com.cook.how.CookHow.factory.ResponseFactory;
+import com.cook.how.CookHow.util.Response;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,7 +33,9 @@ public class LogAspect {
     
     @AfterThrowing(pointcut = "execution(* com.cook.how.CookHow.controller.*.*(..))", throwing = "ex")
     public void logError(Exception ex) {
-        ex.printStackTrace();
+        if(isNotKnownException(ex)){
+            ex.printStackTrace();
+        }
     }
 
     @AfterReturning(pointcut = "execution (* com.cook.how.CookHow.repository.*.*(..))", returning = "result")
@@ -40,5 +44,8 @@ public class LogAspect {
         log.debug("With Value: " + result != null ? result.toString() : "NULL");
     }
 
+    private Boolean isNotKnownException(Exception ex){
+        return !(ex instanceof ElementCantBeEmpty) && !(ex instanceof InternalServerError) && ! (ex instanceof StringLengthMustBeGraterThanThree) ;
+    }
 
 }
