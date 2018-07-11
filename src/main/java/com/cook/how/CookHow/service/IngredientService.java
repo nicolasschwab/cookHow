@@ -10,7 +10,7 @@ import com.cook.how.CookHow.util.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IngredientService {
@@ -24,36 +24,48 @@ public class IngredientService {
     @Autowired
     private MessageFactory ingredientMessageFactory;
 
-    public List<Ingredient> getIngredientsStartingWith(String partialName){
-        return mapper.mapList(ingredientRepository.findByNameStartingWith(partialName), Ingredient.class);
+    public Response getIngredientsStartingWith(String partialName){
+        return ResponseFactory.createResponseWithPayload(mapper.mapList(ingredientRepository.findByNameStartingWith(partialName), Ingredient.class));
     }
 
-    public List<Ingredient> getAll(){
-        return mapper.mapList(ingredientRepository.findAll(), Ingredient.class);
+    public Response getAll(){
+        return ResponseFactory.createResponseWithPayload(mapper.mapList(ingredientRepository.findAll(), Ingredient.class));
     }
 
-    public Ingredient get(Long id){
-        return mapper.map(ingredientRepository.findById(id), Ingredient.class);
+    public Response get(Long id){
+        return ResponseFactory.createResponseWithPayload(mapper.map(ingredientRepository.findById(id), Ingredient.class));
     }
 
     public synchronized Response addIngredient(String ingredientName) {
-        if (ingredientNameAlreadyExist(ingredientName)){
-            return ResponseFactory.createBadRequestResponse(ingredientMessageFactory.createElementAlreadyExist(ingredientName));
-        }
-        return ResponseFactory.createOkResponseWithPayload(
-                mapper.map(
-                        ingredientRepository.save(ModelFactory.createNewIngredientWithName(ingredientName)),
-                        Ingredient.class
-                )
-            );
+        return ingredientNameAlreadyExist(ingredientName) ?
+            ResponseFactory.createBadRequestResponse(ingredientMessageFactory.createElementAlreadyExist(ingredientName))
+            :
+            mapIngredientAndCreateResponse(ingredientRepository.save(ModelFactory.createNewIngredientWithName(ingredientName)));
     }
 
     private Boolean ingredientNameAlreadyExist(String ingredientName){
         return ingredientRepository.findByName(ingredientName).isPresent();
     }
 
-    /*public Ingredient editIngredient(Ingredient ingredient) {
-        return ingredientRepository.findById(ingredient.id);
-    }*/
+    public Response editIngredient(Ingredient ingredient) {
+        Optional<com.cook.how.CookHow.model.Ingredient> optionalModifiedIngredient = copy(ingredientRepository.findById(ingredient.id), ingredient);
+        if( optionalModifiedIngredient.isPresent() ){
+            return mapIngredientAndCreateResponse(ingredientRepository.save(optionalModifiedIngredient.get()));
+        }
+        return ResponseFactory.createNotFoundResponse();
+    }
+
+    private Response mapIngredientAndCreateResponse(com.cook.how.CookHow.model.Ingredient ingredient){
+        return ResponseFactory.createResponseWithPayload(
+                mapper.map(
+                        ingredient,
+                        Ingredient.class
+                )
+        );
+    }
+
+    private Optional<com.cook.how.CookHow.model.Ingredient> copy(Optional<com.cook.how.CookHow.model.Ingredient> modelIngredient, Ingredient newIngredient){
+        return modelIngredient.map( ingredient -> ingredient.copy(newIngredient.isEssential, newIngredient.name));
+    }
 
 }

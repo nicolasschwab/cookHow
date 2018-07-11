@@ -20,19 +20,19 @@ public class IngredientController {
     }
 
     @GetMapping("/inferAndGet")
-    public @ResponseBody List<Ingredient> inferAndGet(@RequestParam String ingredientName){
+    public @ResponseBody Response inferAndGet(@RequestParam String ingredientName){
         IngredientValidator.validateInferAndGet(ingredientName);
         return ingredientService.getIngredientsStartingWith(ingredientName);
     }
 
     @GetMapping("/getAll")
-    public @ResponseBody List<Ingredient> getAll(){
+    public @ResponseBody Response getAll(){
         return ingredientService.getAll();
     }
 
     @GetMapping("/get/{id}")
     public @ResponseBody Response get(@PathVariable Long id){
-        return ResponseFactory.createOkResponseWithPayload(ingredientService.get(id));
+        return ingredientService.get(id);
     }
 
     @PostMapping("/add")
@@ -41,10 +41,9 @@ public class IngredientController {
         return ingredientService.addIngredient(ingredient.name);
     }
 
-    @PutMapping("/edit")
-    public void edit(Ingredient ingredient){
-        IngredientValidator.validateEdit(ingredient);
-        ingredientService.editIngredient(ingredient);
+    @PutMapping("/edit/{id}")
+    public @ResponseBody Response edit(@RequestBody Ingredient ingredient){
+        return ingredientService.editIngredient(ingredient);
     }
 
 }

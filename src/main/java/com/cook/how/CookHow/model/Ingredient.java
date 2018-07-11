@@ -23,6 +23,12 @@ public class Ingredient{
 	public Ingredient() {
 	}
 
+	public Ingredient copy(Boolean isEssential, String name){
+		this.isEssential = isEssential;
+		this.name = name;
+		return this;
+	}
+
 	public Long getId() {
 		return id;
 	}
