@@ -39,7 +39,7 @@ abstract class Validator {
     }
 
     static void stringLengthIsGraterThanTwo(String aString, String element){
-        stringLengthIsGraterThanTwo(aString, ()-> messageFactory.createElementCantBeEmpty(element));
+        stringLengthIsGraterThanTwo(aString, ()-> messageFactory.lengthMustBeGraterThanThree(element));
     }
 
     static void hasAtLeastOneElement(List<?> aList, String element){
