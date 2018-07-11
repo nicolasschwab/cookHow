@@ -27,30 +27,38 @@ public class ResponseFactory {
         return createErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, messageFactory.createInternalError());
     }
 
-    public static <T> Response createOkResponseWithPayload(List<T> payload){
+    /**
+     * @param payload might be Null. In that case a 404 response will be created
+     * @return a Response
+     */
+    public static <T> Response createResponseWithPayload(List<T> payload){
         return createWithPayload(HttpStatus.OK, payload);
     }
 
-    public static <T> Response createOkResponseWithPayload(T payload){
+    /**
+     * @param payload might be Null. In that case a 404 response will be created
+     * @return a Response
+     */
+    public static <T> Response createResponseWithPayload(T payload){
         return createWithPayload(HttpStatus.OK, payload);
+    }
+
+    public static Response createNotFoundResponse(){
+        return createErrorResponse(HttpStatus.NOT_FOUND, messageFactory.createCantFindElement());
     }
 
     private static <T> Response createWithPayload(HttpStatus httpStatus ,T payload){
         if(payload == null){
-            return createCantFindElementResponse();
+            return createNotFoundResponse();
         }
         return createOkResponse(httpStatus, payload);
     }
 
     private static <T> Response createWithPayload(HttpStatus httpStatus ,List<T> payload){
         if(payload == null || payload.isEmpty()){
-            return createCantFindElementResponse();
+            return createNotFoundResponse();
         }
         return createOkResponse(httpStatus, payload);
-    }
-
-    private static Response createCantFindElementResponse(){
-        return createErrorResponse(HttpStatus.BAD_REQUEST , messageFactory.createCantFindElement());
     }
 
     private static Response createErrorResponse(HttpStatus httpStatus, String message){
